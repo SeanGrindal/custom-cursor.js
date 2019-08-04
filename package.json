@@ -1,9 +1,11 @@
 {
-  "name": "cursor.js",
+  "name": "custom-cursor.js",
   "version": "1.0.0",
   "description": "Generate a custom cursor in JS",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "build": "--config webpack.config.js",
+    "dev": "webpack -w --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -11,13 +13,28 @@
     "url": "git+https://github.com/SeanGrindal/cursor.js.git"
   },
   "keywords": [
+    "simple",
+    "lightweight",
+    "frontend",
     "cursor",
-    "javascript"
+    "custom cursor"
   ],
-  "author": "Sean Grindal",
+  "author": {
+    "name": "Sean Grindal",
+    "email": "sean37gl@gmail.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/SeanGrindal/cursor.js/issues"
   },
-  "homepage": "https://github.com/SeanGrindal/cursor.js#readme"
+  "homepage": "https://github.com/SeanGrindal/cursor.js#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-loader": "^8.0.6",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6"
+  }
 }
