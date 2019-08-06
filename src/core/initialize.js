@@ -1,27 +1,16 @@
 import { isMobileUserAgent } from '../util/isMobileUserAgent'
 
+import { TweenMax, Power3 } from 'gsap/TweenMax'
+
 export function initialize(cursor) {
-  cursor.active = true
-  cursor.element.classList.add('cursor--initialized')
-
   if (!isMobileUserAgent()) {
-    document.addEventListener('mousemove', mouseMove)
+    cursor.active = true
+    cursor.element.classList.add('cursor--initialized')
 
-    document.addEventListener('mouseleave', mouseLeave)
+    document.addEventListener('mousemove', cursor.track)
 
-    document.addEventListener('mouseenter', mouseEnter)
-  }
+    document.addEventListener('mouseleave', cursor.leave)
 
-  function mouseMove(e) {
-   cursor.element.style.left = `${e.clientX}px`
-   cursor.element.style.top = `${e.clientY}px`
-  }
-
-  function mouseLeave(e) {
-    cursor.element.classList.add('cursor--off-screen')
-  }
-
-  function mouseEnter(e) {
-    cursor.element.classList.remove('cursor--off-screen')
+    document.addEventListener('mouseenter', cursor.enter)
   }
 }

@@ -1,12 +1,12 @@
 export function destroy(cursor) {
   if (cursor.active) {
     cursor.element.classList.remove('cursor--initialized')
-    
-    document.removeEventListener('mousemove', mouseMove)
 
-    document.removeEventListener('mouseleave', mouseLeave)
+    document.removeEventListener('mousemove', cursor.track)
 
-    document.removeEventListener('mouseenter', mouseEnter)
+    document.removeEventListener('mouseleave', cursor.leave)
+
+    document.removeEventListener('mouseenter', cursor.enter)
 
     cursor.active = false
   }

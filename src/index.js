@@ -1,6 +1,14 @@
+// UTILITY FUNCTIONS
+import { warn } from './util/log'
+
+// CORE FUNCTIONS
 import { destroy } from './core/destroy'
 import { initialize } from './core/initialize'
-import { warn } from './util/log'
+
+// EVENTS
+import { enter } from './core/events/enter'
+import { leave } from './core/events/leave'
+import { track } from './core/events/track'
 
 export default class CustomCursor {
   constructor(element, options = {}) {
@@ -15,8 +23,21 @@ export default class CustomCursor {
     this.element = element
     this.disabled = false
     this.active = false
+    this.animateTime = options.animateTime || 0
     this.interactionClasses = {
       focusClass: options.focusClass
+    }
+
+    this.enter = () => {
+      enter(this)
+    }
+
+    this.leave = () => {
+      leave(this)
+    }
+
+    this.track = (e) => {
+      track(e, this)
     }
   }
 
