@@ -1,3 +1,5 @@
+import { TweenMax, Power3 } from 'gsap/TweenMax'
+
 export function track(e, cursor) {
   if (cursor.animateTime) {
     TweenMax.to(cursor.element, cursor.animateTime, {

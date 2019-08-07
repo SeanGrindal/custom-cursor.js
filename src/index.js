@@ -21,8 +21,8 @@ export default class CustomCursor {
     }
 
     this.element = element
+    this.initialized = false
     this.disabled = false
-    this.active = false
     this.animateTime = options.animateTime || 0
     this.interactionClasses = {
       focusClass: options.focusClass
@@ -48,7 +48,7 @@ export default class CustomCursor {
   }
 
   disable() {
-    if (this.active) {
+    if (this.initialized) {
       this.disabled = true
 
       this.element.classList.add('cursor--disabled')
@@ -58,7 +58,7 @@ export default class CustomCursor {
   }
 
   enable() {
-    if (this.active) {
+    if (this.initialized) {
       this.disabled = false
 
       this.element.classList.remove('cursor--disabled')

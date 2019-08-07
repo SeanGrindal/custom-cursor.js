@@ -1,6 +1,8 @@
 export function destroy(cursor) {
-  if (cursor.active) {
+  if (cursor.initialized) {
     cursor.element.classList.remove('cursor--initialized')
+    cursor.element.classList.remove('cursor--disabled')
+    cursor.element.classList.remove('cursor--off-screen')
 
     document.removeEventListener('mousemove', cursor.track)
 
@@ -8,6 +10,6 @@ export function destroy(cursor) {
 
     document.removeEventListener('mouseenter', cursor.enter)
 
-    cursor.active = false
+    cursor.initialized = false
   }
 }
