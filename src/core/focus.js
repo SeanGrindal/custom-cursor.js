@@ -28,7 +28,6 @@ export default class Focus {
   }
 
   destroy() {
-    console.log(this.initializedElements)
     this.initializedElements.forEach(initializedElement => {
       initializedElement.removeEventListener('mouseenter', this.elementEnter)
       initializedElement.removeEventListener('mouseleave', this.elementLeave)
