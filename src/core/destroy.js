@@ -10,6 +10,7 @@ export function destroy(cursor) {
 
     document.removeEventListener('mouseenter', cursor.enter)
 
+    cursor.focusObj = cursor.focusObj.destroy()
     cursor.initialized = false
   }
 }

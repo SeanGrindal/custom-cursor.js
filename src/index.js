@@ -1,3 +1,6 @@
+// DEFAULT SETTINGS
+import defaults from './defaults'
+
 // UTILITY FUNCTIONS
 import { warn } from './util/log'
 
@@ -21,12 +24,18 @@ export default class CustomCursor {
     }
 
     this.element = element
+
+    this.focusObj = null
+
     this.initialized = false
+
     this.disabled = false
-    this.animateTime = options.animateTime || 0
-    this.interactionClasses = {
-      focusClass: options.focusClass
-    }
+
+    this.animateTime = options.animateTime || defaults.animateTime
+
+    this.focusElements = options.focusElements || defaults.focusElements
+
+    this.focusClass = options.focusClass || defaults.focusClass
 
     this.enter = () => {
       enter(this)

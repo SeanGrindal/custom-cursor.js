@@ -1,0 +1,23 @@
+.custom-cursor {
+  background-color: black;
+  box-sizing: border-box;
+  border-radius: 50%;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: fixed;
+  height: 50px;
+  transition: width .12s ease-out,
+              height .12s ease-out;
+  transform: translate(-50%, -50%) translateZ(0);
+  width: 50px;
+  will-change: top, left;
+  z-index: 1000;
+
+  &--off-screen {
+    width: 0;
+    height: 0;
+  }
+}
