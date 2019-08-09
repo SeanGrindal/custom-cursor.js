@@ -1,5 +1,8 @@
 export default {
 
+  // Wether or not the true cursor should be visible
+  hideTrueCursor: false,
+
   // Time (in seconds) that cursor takes to catch up to true cursor after a mousemove
   animateTime: .72,
 

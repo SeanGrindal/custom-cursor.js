@@ -5,16 +5,16 @@ export default class Focus {
     this.initializedElements = []
 
     this.elementEnter = () => {
-      this.cursor.element.classList.add(this.cursor.focusClass)
+      this.cursor.element.classList.add(this.cursor.options.focusClass)
     }
 
     this.elementLeave = () => {
-      this.cursor.element.classList.remove(this.cursor.focusClass)
+      this.cursor.element.classList.remove(this.cursor.options.focusClass)
     }
   }
 
   initialize() {
-    this.cursor.focusElements.forEach(element => {
+    this.cursor.options.focusElements.forEach(element => {
       if (typeof element === 'string') element = document.querySelector(element)
       if (!element || !element.nodeName) return
 
@@ -33,7 +33,7 @@ export default class Focus {
       initializedElement.removeEventListener('mouseleave', this.elementLeave)
     })
 
-    this.cursor.element.classList.remove(this.cursor.focusClass)
+    this.cursor.element.classList.remove(this.cursor.options.focusClass)
 
     return null
   }

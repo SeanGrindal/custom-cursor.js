@@ -1,23 +1,45 @@
-.custom-cursor {
+// div.cursor
+//   span.text
+.cursor {
+  align-items: center;
   background-color: black;
   box-sizing: border-box;
   border-radius: 50%;
+  display: flex;
   pointer-events: none;
+  justify-content: center;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   position: fixed;
-  height: 50px;
+  height: 40px;
   transition: width .12s ease-out,
               height .12s ease-out;
   transform: translate(-50%, -50%) translateZ(0);
-  width: 50px;
+  width: 40px;
   will-change: top, left;
   z-index: 1000;
+
+  &--focused {
+    width: 55px;
+    height: 55px;
+
+    .text {
+      opacity: 1;
+      transition: opacity .08s ease-out .04s;
+    }
+  }
 
   &--off-screen {
     width: 0;
     height: 0;
+  }
+
+  .text {
+    color: white;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity .08s ease-out;
   }
 }

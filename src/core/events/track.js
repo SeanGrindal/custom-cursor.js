@@ -1,8 +1,8 @@
 import { TweenMax, Power3 } from 'gsap/TweenMax'
 
 export function track(e, cursor) {
-  if (cursor.animateTime) {
-    TweenMax.to(cursor.element, cursor.animateTime, {
+  if (cursor.options.animateTime) {
+    TweenMax.to(cursor.element, cursor.options.animateTime, {
       left: `${e.clientX}px`,
       top: `${e.clientY}px`,
       ease: Power3.easeOut

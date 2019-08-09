@@ -6,6 +6,17 @@ export function initialize(cursor) {
   if (!isMobileUserAgent()) {
     cursor.element.classList.add('cursor--initialized')
 
+    if (cursor.options.hideTrueCursor) {
+      cursor.styleTag = document.createElement('style')
+      cursor.styleTag.innerHTML = `
+        * {
+          cursor: none;
+        }
+      `
+
+      document.head.appendChild(cursor.styleTag)
+    }
+
     document.addEventListener('mousemove', cursor.track)
 
     document.addEventListener('mouseleave', cursor.leave)

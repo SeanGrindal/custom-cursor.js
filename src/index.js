@@ -3,6 +3,7 @@ import defaults from './defaults'
 
 // UTILITY FUNCTIONS
 import { warn } from './util/log'
+import { areOptionsEqual } from './util/object'
 
 // CORE FUNCTIONS
 import { destroy } from './core/destroy'
@@ -27,15 +28,21 @@ export default class CustomCursor {
 
     this.focusObj = null
 
+    this.styleTag = null
+
     this.initialized = false
 
     this.disabled = false
 
-    this.animateTime = options.animateTime || defaults.animateTime
+    this.options = {
+      hideTrueCursor: options.hideTrueCursor || defaults.hideTrueCursor,
 
-    this.focusElements = options.focusElements || defaults.focusElements
+      animateTime: options.animateTime || defaults.animateTime,
 
-    this.focusClass = options.focusClass || defaults.focusClass
+      focusElements: options.focusElements || defaults.focusElements,
+
+      focusClass: options.focusClass || defaults.focusClass
+    }
 
     this.enter = () => {
       enter(this)
@@ -74,6 +81,18 @@ export default class CustomCursor {
     } else warn('CustomCursor needs to be initialized before it can be enabled')
 
     return this
+  }
+
+  update(newOptions) {
+    console.log(newOptions, this.options)
+    if (!newOptions) {
+      warn('No new options are specified in update call')
+      return
+    }
+
+    if (!areOptionsEqual(newOptions, this.options)) {
+      console.log('update')
+    } else warn('New options in update call are the same as the old options')
   }
 
   destroy() {
