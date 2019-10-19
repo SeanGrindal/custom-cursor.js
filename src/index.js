@@ -34,10 +34,13 @@ export default class CustomCursor {
 
     this.disabled = false
 
+    this.position = {
+      X: null,
+      Y: null
+    }
+
     this.options = {
       hideTrueCursor: options.hideTrueCursor || defaults.hideTrueCursor,
-
-      animateTime: options.animateTime || defaults.animateTime,
 
       focusElements: options.focusElements || defaults.focusElements,
 
@@ -84,15 +87,19 @@ export default class CustomCursor {
   }
 
   update(newOptions) {
-    console.log(newOptions, this.options)
     if (!newOptions) {
       warn('No new options are specified in update call')
       return
     }
 
     if (!areOptionsEqual(newOptions, this.options)) {
-      console.log('update')
+      for (const [key, value] of Object.entries(newOptions)) {
+        this.options[key] = value
+      }
+
     } else warn('New options in update call are the same as the old options')
+
+    this.destroy().initialize()
   }
 
   destroy() {

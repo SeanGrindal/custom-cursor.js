@@ -1,17 +1,17 @@
 # cursor.js
 Create a custom cursor with interactions in JavaScript
 
-## This is still in development!!
-In fact, there is no entry point at the moment.
-But your welcome to build the files yourself and play around with it.
+## Import  
+``` js
+import CustomCursor from 'custom-cursor.js'
+```
+Note: This package utilizes ES6 syntaxes that haven't been compiled. As such, the files must be built and compiled by users.
+
 
 ## Create
 ``` js
 const options = {
-  // Time (in seconds) that the custom cursor takes to catch up to the true cursor after a mousemove
-  animateTime: .72,
-
-  // Wether or not the true cursor should be hidden when the custom cursor is initialized
+  // Whether or not the true cursor should be hidden when the custom cursor is initialized
   hideTrueCursor: false,
 
   // Array of DOM elements/selector strings that apply the focus class on hover
@@ -40,4 +40,7 @@ customCursor.enable()
 
 // Destroy the cursor
 customCursor.destroy()
+
+// Update the cursor
+customCursor.update(newOptions)
 ```
