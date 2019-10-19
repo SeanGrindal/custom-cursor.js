@@ -24,7 +24,7 @@ const options = {
 // Can be selector string or DOM node
 const element = '.cursor'
 
-const customCursor = new customCursor(element, options)
+const customCursor = new CustomCursor(element, options)
 ```
 
 ## Notes
@@ -51,10 +51,8 @@ customCursor.update(newOptions)
 ## Example Mockup
 ### HTML
 ``` html
-<div class="custom-cursor">
-  <div class="cursor">
-    <span class="text">VIEW</span>
-  </div>
+<div class="cursor">
+  <span class="text">VIEW</span>
 </div>
 ```
 

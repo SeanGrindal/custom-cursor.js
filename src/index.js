@@ -100,6 +100,8 @@ export default class CustomCursor {
     } else warn('New options in update call are the same as the old options')
 
     this.destroy().initialize()
+
+    return this
   }
 
   destroy() {
