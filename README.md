@@ -1,4 +1,4 @@
-# cursor.js
+# custom-cursor.js
 Create a custom cursor with interactions in JavaScript: 
 <a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">Example</a>
 
@@ -52,7 +52,7 @@ customCursor.update(newOptions)
 - The class 'cursor--off-screen' will be applied to the CustomCursor when the true cursor is outside the window.
 
 # Example
-<a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">View Following Example Live Demo</a>
+<a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">View Following Example's Live Demo</a>
 ### HTML
 ``` html
 <div class="cursor">
