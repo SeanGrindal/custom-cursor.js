@@ -1,5 +1,6 @@
 # cursor.js
-Create a custom cursor with interactions in JavaScript
+Create a custom cursor with interactions in JavaScript: 
+<a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">Example</a>
 
 ## Import  
 ``` js
@@ -8,7 +9,7 @@ const CustomCursor = require('custom-cursor.js').default
 
 ## Create
 ``` js
-// Following Options represent the defaults
+// Following options represent the defaults
 const options = {
   // Whether or not the true cursor should be hidden when the custom cursor is initialized
   hideTrueCursor: false,
@@ -50,8 +51,8 @@ customCursor.update(newOptions)
 ## Other Class Notes 
 - The class 'cursor--off-screen' will be applied to the CustomCursor when the true cursor is outside the window.
 
-## Example
-[View This Example](https://seangrindal.github.io/custom-cursor-example/)
+# Example
+<a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">View Following Example Live Demo</a>
 ### HTML
 ``` html
 <div class="cursor">
@@ -80,6 +81,7 @@ new CustomCursor('.cursor').initialize()
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  opacity: 0;
   position: fixed;
   height: 60px;
   transform: matrix(1, 0, 0, 1, 0, 0);
@@ -91,12 +93,13 @@ new CustomCursor('.cursor').initialize()
 
 .cursor.cursor--initialized {
   display: flex;
+  opacity: 1;
 }
 
 .cursor .text {
   font-size: .875rem;
   opacity: 0;
-  transition: opacity .08s ease-out;
+  transition: opacity 80ms cubic-bezier(.23,1,.32,1);
 }
 
 .cursor.cursor--off-screen {
