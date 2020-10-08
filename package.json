@@ -17,7 +17,9 @@
     "lightweight",
     "frontend",
     "cursor",
-    "custom cursor"
+    "custom cursor",
+    "javascript cursor",
+    "css cursor"
   ],
   "author": {
     "name": "Sean Grindal",
@@ -29,7 +31,6 @@
     "url": "https://github.com/SeanGrindal/cursor.js/issues"
   },
   "homepage": "https://github.com/SeanGrindal/cursor.js#readme",
-  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1"

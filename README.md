@@ -1,6 +1,10 @@
 # custom-cursor.js
-Create a custom cursor with interactions in JavaScript: 
+Create a custom cursor in JavaScript: 
 <a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">Example</a>
+- Only enabled on mouse-driven devices
+- Add various interaction animation
+- API interface providing basic functions 
+- Dependency Free
 
 ## Import  
 ``` js
@@ -29,16 +33,13 @@ const customCursor = new CustomCursor(element, options)
 
 ## Methods
 ``` js
-// Initializes the cursor to begin following the mouse by attaching listeners and starting an animation frame loop
-// Applies the class 'cursor--initialized' 
+// Initializes the cursor to begin following the mouse by attaching listeners and starting an animation loop
 customCursor.initialize()
 
 // Disable cursor from following the mouse without removing listeners 
-// Applies the class 'cursor--disabled'
 customCursor.disable()
 
 // Enable cursor to follow mouse again if it has been disabled
-// Removes the class 'cursor--disabled'
 customCursor.enable()
 
 // Destroy the cursor removing all event listeners
@@ -48,8 +49,33 @@ customCursor.destroy()
 customCursor.update(newOptions)
 ```
 
-## Other Class Notes 
-- The class 'cursor--off-screen' will be applied to the CustomCursor when the true cursor is outside the window.
+## Core Markup
+```html
+<div class="cursor"></div>
+```
+```scss
+.cursor {
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: fixed;
+  z-index: 1000;
+
+  &.cursor--cursor--initialized {
+    // if cursor initialized
+  }
+
+  &.cursor--off-screen {
+    // if true cursor is outside of the window
+  }
+
+  &.cursor--disabled {
+    // if cursor has been disabled
+  }
+}
+```
 
 # Example
 <a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">View Following Example's Live Demo</a>
@@ -84,7 +110,6 @@ new CustomCursor('.cursor').initialize()
   opacity: 0;
   position: fixed;
   height: 60px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
   transition: all 360ms cubic-bezier(.23,1,.32,1);
   width: 60px;
   will-change: transform;
