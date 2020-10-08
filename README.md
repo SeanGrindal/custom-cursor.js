@@ -3,9 +3,8 @@ Create a custom cursor with interactions in JavaScript
 
 ## Import  
 ``` js
-import CustomCursor from 'custom-cursor.js'
+const CustomCursor = require('custom-cursor.js').default
 ```
-Note: This package utilizes ES6 syntaxes that haven't been compiled. As such, the files must be built and compiled by users.
 
 
 ## Create
@@ -48,7 +47,7 @@ customCursor.destroy()
 customCursor.update(newOptions)
 ```
 
-## Example Mockup
+## Example
 ### HTML
 ``` html
 <div class="cursor">
@@ -60,7 +59,8 @@ customCursor.update(newOptions)
 ``` css
 .cursor {
   align-items: center;
-  background-color: black;
+  border: 1px solid #ff5050;
+  color: #ff5050;
   box-sizing: border-box;
   border-radius: 50%;
   display: none;
@@ -71,12 +71,11 @@ customCursor.update(newOptions)
   -ms-user-select: none;
   user-select: none;
   position: fixed;
-  height: 40px;
-  transition: width 120ms ease-out,
-              height 120ms ease-out,
-              transform 120ms ease-out;
-  width: 40px;
-  will-change: top, left;
+  height: 60px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+  transition: all 360ms cubic-bezier(.23,1,.32,1);
+  width: 60px;
+  will-change: transform;
   z-index: 1000;
 }
 
@@ -85,24 +84,22 @@ customCursor.update(newOptions)
 }
 
 .cursor .text {
-  color: white;
   font-size: .875rem;
   opacity: 0;
   transition: opacity .08s ease-out;
 }
 
 .cursor.cursor--off-screen {
-  width: 0;
-  height: 0;
+  opacity: 0;
 }
 
 .cursor.cursor--focused {
-  width: 55px;
-  height: 55px;
+  width: 90px;
+  height: 90px;
 }
 
-.cursor.cursor--focused .text{
+.cursor.cursor--focused .text {
   opacity: 1;
-  transition: opacity .08s ease-out .04s;
+  transition: opacity 360ms cubic-bezier(.23,1,.32,1);
 }
 ```

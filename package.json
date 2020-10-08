@@ -2,9 +2,9 @@
   "name": "custom-cursor.js",
   "version": "1.0.4",
   "description": "Generate a custom cursor in JS",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "babel src -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,8 +28,11 @@
     "url": "https://github.com/SeanGrindal/cursor.js/issues"
   },
   "homepage": "https://github.com/SeanGrindal/cursor.js#readme",
-  "devDependencies": {},
   "dependencies": {
-    "core-js": "^2.6.10"
+    "core-js": "^3.6.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
   }
 }
