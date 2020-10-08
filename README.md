@@ -1,10 +1,9 @@
 # custom-cursor.js
-Create a custom cursor in JavaScript: 
-<a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">Example</a>
+### Create a custom cursor in JavaScript: <a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">Example</a>
 - Only enabled on mouse-driven devices
 - Add various interaction animation
 - API interface providing basic functions 
-- Dependency Free
+- Lightweight, dependency free
 
 ## Import  
 ``` js
@@ -63,7 +62,7 @@ customCursor.update(newOptions)
   position: fixed;
   z-index: 1000;
 
-  &.cursor--cursor--initialized {
+  &.cursor--initialized {
     // if cursor initialized
   }
 
@@ -79,20 +78,17 @@ customCursor.update(newOptions)
 
 # Example
 <a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">View Following Example's Live Demo</a>
-### HTML
 ``` html
 <div class="cursor">
   <span class="text">VIEW</span>
 </div>
 ```
 
-### JS
 ``` js
 const CustomCursor = require('custom-cursor.js').default 
 new CustomCursor('.cursor').initialize()
 ```
 
-### CSS
 ``` css
 .cursor {
   align-items: center;
