@@ -48,6 +48,7 @@ customCursor.update(newOptions)
 ```
 
 ## Example
+[View This Example](https://seangrindal.github.io/custom-cursor-example/)
 ### HTML
 ``` html
 <div class="cursor">
