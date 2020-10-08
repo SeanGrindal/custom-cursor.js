@@ -6,9 +6,9 @@ Create a custom cursor with interactions in JavaScript
 const CustomCursor = require('custom-cursor.js').default
 ```
 
-
 ## Create
 ``` js
+// Following Options represent the defaults
 const options = {
   // Whether or not the true cursor should be hidden when the custom cursor is initialized
   hideTrueCursor: false,
@@ -26,26 +26,29 @@ const element = '.cursor'
 const customCursor = new CustomCursor(element, options)
 ```
 
-## Notes
-- The class 'cursor--off-screen' will be applied to the CustomCursor when the true cursor is outside the window
-
 ## Methods
 ``` js
-// Initialize the cursor
+// Initializes the cursor to begin following the mouse by attaching listeners and starting an animation frame loop
+// Applies the class 'cursor--initialized' 
 customCursor.initialize()
 
-// Disable cursor
+// Disable cursor from following the mouse without removing listeners 
+// Applies the class 'cursor--disabled'
 customCursor.disable()
 
-// Enable cursor if it has been disabled
+// Enable cursor to follow mouse again if it has been disabled
+// Removes the class 'cursor--disabled'
 customCursor.enable()
 
-// Destroy the cursor
+// Destroy the cursor removing all event listeners
 customCursor.destroy()
 
-// Update the cursor
+// Update the cursor with new options 
 customCursor.update(newOptions)
 ```
+
+## Other Class Notes 
+- The class 'cursor--off-screen' will be applied to the CustomCursor when the true cursor is outside the window.
 
 ## Example
 [View This Example](https://seangrindal.github.io/custom-cursor-example/)
@@ -54,6 +57,12 @@ customCursor.update(newOptions)
 <div class="cursor">
   <span class="text">VIEW</span>
 </div>
+```
+
+### JS
+``` js
+const CustomCursor = require('custom-cursor.js').default 
+new CustomCursor('.cursor').initialize()
 ```
 
 ### CSS

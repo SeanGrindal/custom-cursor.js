@@ -24,10 +24,13 @@ export function initialize(cursor) {
     document.addEventListener('mouseenter', cursor.enter)
 
     const render = () => {
-      const top = cursor.position.Y - cursor.element.clientHeight / 2
-      const left = cursor.position.X - cursor.element.clientWidth / 2
+      if (!cursor.disabled) {
+        const top = cursor.position.Y - cursor.element.clientHeight / 2
+        const left = cursor.position.X - cursor.element.clientWidth / 2
+  
+        cursor.element.style.transform = `matrix(1, 0, 0, 1, ${left}, ${top})`
+      }
 
-      cursor.element.style.transform = `matrix(1, 0, 0, 1, ${left}, ${top})`
       requestAnimationFrame(render)
     }
 
