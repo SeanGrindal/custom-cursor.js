@@ -80,7 +80,9 @@ customCursor.update(newOptions)
 <a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">View Following Example's Live Demo</a>
 ``` html
 <div class="cursor">
-  <span class="text">VIEW</span>
+  <div class="cursor-border">
+      <span class="text">VIEW</span>
+  </div>
 </div>
 ```
 
@@ -91,30 +93,42 @@ new CustomCursor('.cursor').initialize()
 
 ``` css
 .cursor {
-  align-items: center;
-  border: 1px solid #ff5050;
   color: #ff5050;
   box-sizing: border-box;
   border-radius: 50%;
   display: none;
   pointer-events: none;
-  justify-content: center;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  opacity: 0;
   position: fixed;
-  height: 60px;
+  height: 0;
+  width: 0;
+  transform-origin: center;
   transition: all 360ms cubic-bezier(.23,1,.32,1);
-  width: 60px;
   will-change: transform;
   z-index: 1000;
 }
 
-.cursor.cursor--initialized {
+.cursor-border {
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ff5050;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
   display: flex;
-  opacity: 1;
+  transition: all 360ms cubic-bezier(.23,1,.32,1);
+}
+
+.cursor.cursor--initialized {
+  display: block;
 }
 
 .cursor .text {
@@ -127,7 +141,7 @@ new CustomCursor('.cursor').initialize()
   opacity: 0;
 }
 
-.cursor.cursor--focused {
+.cursor.cursor--focused .cursor-border {
   width: 90px;
   height: 90px;
 }

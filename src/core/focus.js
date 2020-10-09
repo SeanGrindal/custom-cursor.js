@@ -14,14 +14,16 @@ export default class Focus {
   }
 
   initialize() {
-    this.cursor.options.focusElements.forEach(element => {
-      if (typeof element === 'string') element = document.querySelector(element)
-      if (!element || !element.nodeName) return
+    this.cursor.options.focusElements.forEach(selector => {
+      if (typeof selector !== 'string') return 
+      const elements = document.querySelectorAll(selector)
 
-      element.addEventListener('mouseenter', this.elementEnter)
-      element.addEventListener('mouseleave', this.elementLeave)
-
-      this.initializedElements.push(element)
+      for (const el of elements) {
+        el.addEventListener('mouseenter', this.elementEnter)
+        el.addEventListener('mouseleave', this.elementLeave)
+  
+        this.initializedElements.push(el)
+      }
     })
 
     return this

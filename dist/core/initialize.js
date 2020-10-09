@@ -32,8 +32,8 @@ function initialize(cursor) {
 
     var render = function render() {
       if (!cursor.disabled) {
-        var top = cursor.position.Y - cursor.element.clientHeight / 2;
-        var left = cursor.position.X - cursor.element.clientWidth / 2;
+        var top = cursor.position.Y;
+        var left = cursor.position.X;
 
         cursor.element.style.transform = 'matrix(1, 0, 0, 1, ' + left + ', ' + top + ')';
       }

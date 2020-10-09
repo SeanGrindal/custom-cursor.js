@@ -32,14 +32,37 @@ var Focus = function () {
     value: function initialize() {
       var _this2 = this;
 
-      this.cursor.options.focusElements.forEach(function (element) {
-        if (typeof element === 'string') element = document.querySelector(element);
-        if (!element || !element.nodeName) return;
+      this.cursor.options.focusElements.forEach(function (selector) {
+        if (typeof selector !== 'string') return;
+        var elements = document.querySelectorAll(selector);
 
-        element.addEventListener('mouseenter', _this2.elementEnter);
-        element.addEventListener('mouseleave', _this2.elementLeave);
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
 
-        _this2.initializedElements.push(element);
+        try {
+          for (var _iterator = elements[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var el = _step.value;
+
+            el.addEventListener('mouseenter', _this2.elementEnter);
+            el.addEventListener('mouseleave', _this2.elementLeave);
+
+            _this2.initializedElements.push(el);
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
       });
 
       return this;
