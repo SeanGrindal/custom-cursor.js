@@ -130,8 +130,6 @@ var CustomCursor = function () {
         return;
       }
 
-      console.log(newOptions, this.options);
-
       if (!(0, _object.areOptionsEqual)(newOptions, this.options)) {
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;

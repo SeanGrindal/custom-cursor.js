@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -17,13 +19,30 @@ var Focus = function () {
     this.cursor = cursor;
 
     this.initializedElements = [];
+    this.focusClasses = [];
 
-    this.elementEnter = function () {
-      _this.cursor.element.classList.add(_this.cursor.options.focusClass);
+    this.elementEnter = function (focusClass, customEnterFunc) {
+      var func = function func() {
+        if (focusClass) {
+          _this.cursor.element.classList.add(focusClass);
+        }
+
+        if (typeof customEnterFunc == 'function') customEnterFunc();
+      };
+
+      return func;
     };
 
-    this.elementLeave = function () {
-      _this.cursor.element.classList.remove(_this.cursor.options.focusClass);
+    this.elementLeave = function (focusClass, customLeaveFunc) {
+      var func = function func() {
+        if (focusClass) {
+          _this.cursor.element.classList.remove(focusClass);
+        }
+
+        if (typeof customLeaveFunc == 'function') customLeaveFunc();
+      };
+
+      return func;
     };
   }
 
@@ -33,35 +52,48 @@ var Focus = function () {
       var _this2 = this;
 
       this.cursor.options.focusElements.forEach(function (selector) {
-        if (typeof selector !== 'string') return;
-        var elements = document.querySelectorAll(selector);
+        if (typeof selector == 'string' || (typeof selector === 'undefined' ? 'undefined' : _typeof(selector)) == 'object') {
+          var elSelector = selector.hasOwnProperty('selector') ? selector.selector : selector;
+          var focusClass = selector.hasOwnProperty('focusClass') ? selector.focusClass : _this2.cursor.options.focusClass;
+          var customEnterFunc = selector.hasOwnProperty('mouseenter') ? selector.mouseenter : null;
+          var customLeaveFunc = selector.hasOwnProperty('mouseleave') ? selector.mouseleave : null;
 
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
+          var elements = document.querySelectorAll(elSelector);
 
-        try {
-          for (var _iterator = elements[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var el = _step.value;
+          var enterFunc = _this2.elementEnter(focusClass, customEnterFunc);
+          var leaveFunc = _this2.elementLeave(focusClass, customLeaveFunc);
 
-            if (_this2.initializedElements.includes(el)) continue;
-
-            el.addEventListener('mouseenter', _this2.elementEnter);
-            el.addEventListener('mouseleave', _this2.elementLeave);
-
-            _this2.initializedElements.push(el);
+          if (!_this2.focusClasses.includes(focusClass)) {
+            _this2.focusClasses.push(focusClass);
           }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
+
+          var _iteratorNormalCompletion = true;
+          var _didIteratorError = false;
+          var _iteratorError = undefined;
+
           try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-              _iterator.return();
+            for (var _iterator = elements[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              var el = _step.value;
+
+              if (_this2.initializedElements.includes(el)) continue;
+
+              el.addEventListener('mouseenter', enterFunc);
+              el.addEventListener('mouseleave', leaveFunc);
+
+              _this2.initializedElements.push({ el: el, enterFunc: enterFunc, leaveFunc: leaveFunc });
             }
+          } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
           } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
+            try {
+              if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+              }
+            } finally {
+              if (_didIteratorError) {
+                throw _iteratorError;
+              }
             }
           }
         }
@@ -72,14 +104,37 @@ var Focus = function () {
   }, {
     key: 'destroy',
     value: function destroy() {
-      var _this3 = this;
-
       this.initializedElements.forEach(function (initializedElement) {
-        initializedElement.removeEventListener('mouseenter', _this3.elementEnter);
-        initializedElement.removeEventListener('mouseleave', _this3.elementLeave);
+        initializedElement.el.removeEventListener('mouseenter', initializedElement.enterFunc);
+        initializedElement.el.removeEventListener('mouseleave', initializedElement.leaveFunc);
       });
 
-      this.cursor.element.classList.remove(this.cursor.options.focusClass);
+      this.initializedElements = [];
+
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = this.focusClasses[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var string = _step2.value;
+
+          this.cursor.element.classList.remove(string);
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
 
       return null;
     }

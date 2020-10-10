@@ -93,8 +93,6 @@ export default class CustomCursor {
       return
     }
 
-    console.log(newOptions, this.options)
-
     if (!areOptionsEqual(newOptions, this.options)) {
       for (const [key, value] of Object.entries(newOptions)) {
         this.options[key] = value

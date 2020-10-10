@@ -10,19 +10,19 @@
 const CustomCursor = require('custom-cursor.js').default
 ```
 
-## Create
+## Simple Creation
 ``` js
 // Following options represent the defaults
 const options = {
   // Whether or not the true cursor should be hidden when the custom cursor is initialized
   hideTrueCursor: false,
 
-  // Array of DOM elements/selector strings that apply the focus class on hover
+  // Array of DOM elements/selector strings that add interactions on hover
   focusElements: ['a', 'button'],
 
   // Class applied when the true cursor is hovering over a focusElement
   focusClass: 'cursor--focused'
-}
+} 
 
 // Can be selector string or DOM node
 const element = '.cursor'
@@ -30,12 +30,36 @@ const element = '.cursor'
 const customCursor = new CustomCursor(element, options)
 ```
 
+## Advanced Interactions
+Focus elements can be given unique interactions.
+``` js
+const options = {
+  focusElements: [{
+    selector: 'a#special-focus',
+    focusClass: 'cursor--special-focused', 
+    mouseenter: () => {
+      // Run on mouseenter in addition to adding the focusClass
+      console.log('Hi!! I entered <a id="#special-focus">')
+    },
+    mouseleave: () => {
+      // Run on mouseenter in addition to removing the focusClass
+      console.log(`Cya!! I'm leaving <a id="#special-focus">`)
+    }
+  }, 'button', 'a'],
+  
+  focusClass: 'cursor--focused'
+}
+```
+If a focus class is given for a specific selector it will override the default. In the above example 'cursor--special-focused' is applied to ```<a id="special-focus">``` on hover, and 'cursor--focused' is applied on hover to buttons and other links.
+
+Note that listeners will only be attached to an element the first time it's found in the DOM when looping over the selectors. As such, the more specific an interaction, the earlier it should be specified in the array.
+
 ## Methods
 ``` js
 // Initializes the cursor to begin following the mouse by attaching listeners and starting an animation loop
 customCursor.initialize()
 
-// Disable cursor from following the mouse without removing listeners 
+// Disable cursor from following the mouse without removing listeners  
 customCursor.disable()
 
 // Enable cursor to follow mouse again if it has been disabled
@@ -94,8 +118,6 @@ new CustomCursor('.cursor').initialize()
 ``` css
 .cursor {
   color: #ff5050;
-  box-sizing: border-box;
-  border-radius: 50%;
   display: none;
   pointer-events: none;
   -webkit-user-select: none;
@@ -103,26 +125,24 @@ new CustomCursor('.cursor').initialize()
   -ms-user-select: none;
   user-select: none;
   position: fixed;
-  height: 0;
-  width: 0;
   transition: all 360ms cubic-bezier(.23,1,.32,1);
   will-change: transform;
   z-index: 1000;
 }
 
 .cursor-border {
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #ff5050;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  box-sizing: border-box;
   position: absolute;
+  box-sizing: border-box;
+  align-items: center;
+  border: 1px solid #ff5050;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  height: 60px;
+  width: 60px;
   left: 0;
   top: 0;
   transform: translate(-50%, -50%);
-  display: flex;
   transition: all 360ms cubic-bezier(.23,1,.32,1);
 }
 
@@ -145,7 +165,7 @@ new CustomCursor('.cursor').initialize()
   height: 90px;
 }
 
-.cursor.cursor--focused .text {
+.cursor.cursor--focused-view .text {
   opacity: 1;
   transition: opacity 360ms cubic-bezier(.23,1,.32,1);
 }

@@ -3,28 +3,58 @@ export default class Focus {
     this.cursor = cursor
 
     this.initializedElements = []
+    this.focusClasses = []
 
-    this.elementEnter = () => {
-      this.cursor.element.classList.add(this.cursor.options.focusClass)
+    this.elementEnter = (focusClass, customEnterFunc) => {
+      const func = () => {
+        if (focusClass) {
+          this.cursor.element.classList.add(focusClass)
+        }
+
+        if (typeof customEnterFunc == 'function') customEnterFunc()
+      }
+      
+      return func
     }
 
-    this.elementLeave = () => {
-      this.cursor.element.classList.remove(this.cursor.options.focusClass)
+    this.elementLeave = (focusClass, customLeaveFunc) => {
+      const func = () => {
+        if (focusClass) {
+          this.cursor.element.classList.remove(focusClass)
+        }
+
+        if (typeof customLeaveFunc == 'function') customLeaveFunc()
+      }
+      
+      return func
     }
   }
 
   initialize() {
     this.cursor.options.focusElements.forEach(selector => {
-      if (typeof selector !== 'string') return 
-      const elements = document.querySelectorAll(selector)
+      if (typeof selector == 'string' || typeof selector == 'object') {
+        const elSelector = selector.hasOwnProperty('selector') ? selector.selector : selector
+        const focusClass = selector.hasOwnProperty('focusClass') ? selector.focusClass : this.cursor.options.focusClass
+        const customEnterFunc = selector.hasOwnProperty('mouseenter') ? selector.mouseenter : null
+        const customLeaveFunc = selector.hasOwnProperty('mouseleave') ? selector.mouseleave : null
 
-      for (const el of elements) {
-        if (this.initializedElements.includes(el)) continue
+        const elements = document.querySelectorAll(elSelector)
+ 
+        const enterFunc = this.elementEnter(focusClass, customEnterFunc)
+        const leaveFunc = this.elementLeave(focusClass, customLeaveFunc)
 
-        el.addEventListener('mouseenter', this.elementEnter)
-        el.addEventListener('mouseleave', this.elementLeave)
-  
-        this.initializedElements.push(el)
+        if (!this.focusClasses.includes(focusClass)) {
+          this.focusClasses.push(focusClass)
+        }
+
+        for (const el of elements) {
+          if (this.initializedElements.includes(el)) continue
+
+          el.addEventListener('mouseenter', enterFunc)
+          el.addEventListener('mouseleave', leaveFunc)
+    
+          this.initializedElements.push({ el, enterFunc, leaveFunc  })
+        }
       }
     })
 
@@ -33,11 +63,15 @@ export default class Focus {
 
   destroy() {
     this.initializedElements.forEach(initializedElement => {
-      initializedElement.removeEventListener('mouseenter', this.elementEnter)
-      initializedElement.removeEventListener('mouseleave', this.elementLeave)
+      initializedElement.el.removeEventListener('mouseenter', initializedElement.enterFunc)
+      initializedElement.el.removeEventListener('mouseleave', initializedElement.leaveFunc)
     })
 
-    this.cursor.element.classList.remove(this.cursor.options.focusClass)
+    this.initializedElements = []
+
+    for (const string of this.focusClasses) {
+      this.cursor.element.classList.remove(string)
+    }
 
     return null
   }
