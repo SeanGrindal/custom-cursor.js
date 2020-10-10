@@ -44,6 +44,8 @@ var Focus = function () {
           for (var _iterator = elements[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var el = _step.value;
 
+            if (_this2.initializedElements.includes(el)) continue;
+
             el.addEventListener('mouseenter', _this2.elementEnter);
             el.addEventListener('mouseleave', _this2.elementLeave);
 

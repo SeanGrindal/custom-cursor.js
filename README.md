@@ -81,7 +81,7 @@ customCursor.update(newOptions)
 ``` html
 <div class="cursor">
   <div class="cursor-border">
-      <span class="text">VIEW</span>
+    <span class="text">VIEW</span>
   </div>
 </div>
 ```
@@ -105,7 +105,6 @@ new CustomCursor('.cursor').initialize()
   position: fixed;
   height: 0;
   width: 0;
-  transform-origin: center;
   transition: all 360ms cubic-bezier(.23,1,.32,1);
   will-change: transform;
   z-index: 1000;

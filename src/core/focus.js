@@ -19,6 +19,8 @@ export default class Focus {
       const elements = document.querySelectorAll(selector)
 
       for (const el of elements) {
+        if (this.initializedElements.includes(el)) continue
+
         el.addEventListener('mouseenter', this.elementEnter)
         el.addEventListener('mouseleave', this.elementLeave)
   

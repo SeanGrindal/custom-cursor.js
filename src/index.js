@@ -89,8 +89,11 @@ export default class CustomCursor {
   update(newOptions) {
     if (!newOptions) {
       warn('No new options are specified in update call')
+      
       return
     }
+
+    console.log(newOptions, this.options)
 
     if (!areOptionsEqual(newOptions, this.options)) {
       for (const [key, value] of Object.entries(newOptions)) {

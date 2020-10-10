@@ -126,8 +126,11 @@ var CustomCursor = function () {
     value: function update(newOptions) {
       if (!newOptions) {
         (0, _log.warn)('No new options are specified in update call');
+
         return;
       }
+
+      console.log(newOptions, this.options);
 
       if (!(0, _object.areOptionsEqual)(newOptions, this.options)) {
         var _iteratorNormalCompletion = true;
