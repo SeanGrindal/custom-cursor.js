@@ -7,6 +7,7 @@ export default class Focus {
 
     this.elementEnter = (focusClass, customEnterFunc) => {
       const func = () => {
+        console.log(1)
         if (focusClass) {
           this.cursor.element.classList.add(focusClass)
         }
@@ -48,7 +49,7 @@ export default class Focus {
         }
 
         for (const el of elements) {
-          if (this.initializedElements.includes(el)) continue
+          if (this.initializedElements.map(item => item.el).includes(el)) continue
 
           el.addEventListener('mouseenter', enterFunc)
           el.addEventListener('mouseleave', leaveFunc)

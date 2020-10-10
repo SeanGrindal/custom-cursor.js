@@ -23,6 +23,7 @@ var Focus = function () {
 
     this.elementEnter = function (focusClass, customEnterFunc) {
       var func = function func() {
+        console.log(1);
         if (focusClass) {
           _this.cursor.element.classList.add(focusClass);
         }
@@ -75,7 +76,9 @@ var Focus = function () {
             for (var _iterator = elements[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
               var el = _step.value;
 
-              if (_this2.initializedElements.includes(el)) continue;
+              if (_this2.initializedElements.map(function (item) {
+                return item.el;
+              }).includes(el)) continue;
 
               el.addEventListener('mouseenter', enterFunc);
               el.addEventListener('mouseleave', leaveFunc);

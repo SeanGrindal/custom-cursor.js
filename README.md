@@ -49,6 +49,8 @@ const options = {
   
   focusClass: 'cursor--focused'
 }
+
+const customCursor = new CustomCursor('cursor', options)
 ```
 If a focus class is given for a specific selector it will override the default. In the above example 'cursor--special-focused' is applied to ```<a id="special-focus">``` on hover, and 'cursor--focused' is applied on hover to buttons and other links.
 
@@ -112,7 +114,12 @@ customCursor.update(newOptions)
 
 ``` js
 const CustomCursor = require('custom-cursor.js').default 
-new CustomCursor('.cursor').initialize()
+new CustomCursor('.cursor', {
+   focusElements: [{
+      selector: '.photo-link',
+      focusClass: 'cursor--focused-view'
+   }, 'a']
+}).initialize()
 ```
 
 ``` css
@@ -160,7 +167,8 @@ new CustomCursor('.cursor').initialize()
   opacity: 0;
 }
 
-.cursor.cursor--focused .cursor-border {
+.cursor.cursor--focused .cursor-border,
+.cursor.cursor--focused-view .cursor-border {
   width: 90px;
   height: 90px;
 }
