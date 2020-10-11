@@ -7,7 +7,6 @@ export default class Focus {
 
     this.elementEnter = (focusClass, customEnterFunc) => {
       const func = () => {
-        console.log(1)
         if (focusClass) {
           this.cursor.element.classList.add(focusClass)
         }

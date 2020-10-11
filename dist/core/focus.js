@@ -23,7 +23,6 @@ var Focus = function () {
 
     this.elementEnter = function (focusClass, customEnterFunc) {
       var func = function func() {
-        console.log(1);
         if (focusClass) {
           _this.cursor.element.classList.add(focusClass);
         }
