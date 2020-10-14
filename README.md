@@ -38,11 +38,11 @@ const options = {
     selector: 'a#special-focus',
     focusClass: 'cursor--special-focused', 
     mouseenter: () => {
-      // Run on mouseenter in addition to adding the focusClass
+      // Run in addition to adding the focusClass
       console.log('Hi!! I entered <a id="#special-focus">')
     },
     mouseleave: () => {
-      // Run on mouseenter in addition to removing the focusClass
+      // Run in addition to removing the focusClass
       console.log(`Cya!! I'm leaving <a id="#special-focus">`)
     }
   }, 'button', 'a'],
@@ -50,7 +50,7 @@ const options = {
   focusClass: 'cursor--focused'
 }
 
-const customCursor = new CustomCursor('cursor', options)
+const customCursor = new CustomCursor('.cursor', options)
 ```
 If a focus class is given for a specific selector it will override the default. In the above example 'cursor--special-focused' is applied to ```<a id="special-focus">``` on hover, and 'cursor--focused' is applied on hover to buttons and other links.
 
@@ -115,10 +115,11 @@ customCursor.update(newOptions)
 ``` js
 const CustomCursor = require('custom-cursor.js').default 
 new CustomCursor('.cursor', {
-   focusElements: [{
-      selector: '.photo-link',
-      focusClass: 'cursor--focused-view'
-   }, 'a']
+  hideTrueCursor: true,
+  focusElements: [{
+    selector: '.photo-link',
+    focusClass: 'cursor--focused-view'
+  }, 'a']
 }).initialize()
 ```
 
@@ -132,7 +133,6 @@ new CustomCursor('.cursor', {
   -ms-user-select: none;
   user-select: none;
   position: fixed;
-  transition: all 360ms cubic-bezier(.23,1,.32,1);
   will-change: transform;
   z-index: 1000;
 }
