@@ -4,7 +4,7 @@ export function destroy(cursor) {
     cursor.element.classList.remove('cursor--disabled')
     cursor.element.classList.remove('cursor--off-screen')
 
-    if (cursor.styleTag) document.head.removeChild(cursor.styleTag)
+    cursor.unhideTrueCursor()
 
     document.removeEventListener('mousemove', cursor.track)
 

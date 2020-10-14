@@ -56,22 +56,32 @@ If a focus class is given for a specific selector it will override the default. 
 
 Note that listeners will only be attached to an element the first time it's found in the DOM when looping over the selectors. As such, the more specific an interaction, the earlier it should be specified in the array.
 
-## Methods
+## Core Methods
 ``` js
 // Initializes the cursor to begin following the mouse by attaching listeners and starting an animation loop
 customCursor.initialize()
 
-// Disable cursor from following the mouse without removing listeners  
+// Disable cursor from following the mouse without removing any listeners  
 customCursor.disable()
 
 // Enable cursor to follow mouse again if it has been disabled
 customCursor.enable()
 
-// Destroy the cursor removing all event listeners
+// Destroy the cursor removing all event listeners and stopping the animation loop
 customCursor.destroy()
 
 // Update the cursor with new options 
 customCursor.update(newOptions)
+
+// Hide true cursor (if it isn't already)
+customCursor.hideTrueCursor()
+
+// Unhide true cursor (if it's hidden)
+customCursor.unhideTrueCursor()
+
+// x and y being a pixel position inside the viewport
+customCursor.setPosition(x, y, requestAnimationFrame = false)
+/* Note that if the custom cursor is still enabled it's position will be updated on the next animationFrame. Thus, this method is most useful when the cursor is disabled. */
 ```
 
 ## Core Markup
@@ -101,8 +111,35 @@ customCursor.update(newOptions)
   }
 }
 ```
+## Use Case Examples 
+### Run code if mobile and cursor isn't initialized
+```js
+const customCursor = new CustomCursor('.cursor').initialize()
 
-# Example
+if (customCursor.isMobileUserAgent) {
+  // foo()
+}
+```
+
+### Unhide hidden true cursor when disabling 
+```js
+const customCursor = new CustomCursor('.cursor', { 
+  hideTrueCursor: true
+}).initialize()
+
+// When disabling 
+customCursor.disable().unhideTrueCursor()
+
+// Then re-enable 
+customCursor.enable().hideTrueCursor()
+```
+
+### Set starting point for the cursor 
+```js
+new CustomCursor('.cursor').setPosition(x, y).initialize()
+```
+
+# Full Example
 <a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">View Following Example's Live Demo</a>
 ``` html
 <div class="cursor">
@@ -120,7 +157,7 @@ new CustomCursor('.cursor', {
     selector: '.photo-link',
     focusClass: 'cursor--focused-view'
   }, 'a']
-}).initialize()
+}).setPosition(-30, -30).initialize()
 ```
 
 ``` css

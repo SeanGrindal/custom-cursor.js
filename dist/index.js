@@ -26,6 +26,8 @@ var _log = require('./util/log');
 
 var _object = require('./util/object');
 
+var _isMobileUserAgent = require('./util/isMobileUserAgent');
+
 var _destroy2 = require('./core/destroy');
 
 var _initialize2 = require('./core/initialize');
@@ -78,6 +80,8 @@ var CustomCursor = function () {
 
       focusClass: options.focusClass || _defaults2.default.focusClass
     };
+
+    this.isMobileUserAgent = (0, _isMobileUserAgent.isMobileUserAgent)();
 
     this.enter = function () {
       (0, _enter.enter)(_this);
@@ -160,6 +164,40 @@ var CustomCursor = function () {
       } else (0, _log.warn)('New options in update call are the same as the old options');
 
       this.destroy().initialize();
+
+      return this;
+    }
+  }, {
+    key: 'hideTrueCursor',
+    value: function hideTrueCursor() {
+      this.styleTag = document.createElement('style');
+      this.styleTag.innerHTML = '\n      * {\n        cursor: none;\n      }\n    ';
+
+      document.head.appendChild(this.styleTag);
+
+      return this;
+    }
+  }, {
+    key: 'unhideTrueCursor',
+    value: function unhideTrueCursor() {
+      if (this.styleTag) document.head.removeChild(this.styleTag);
+
+      return this;
+    }
+  }, {
+    key: 'setPosition',
+    value: function setPosition(x, y) {
+      var _this2 = this;
+
+      var reqAni = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+      var set = function set() {
+        if (typeof x == 'number' && typeof y == 'number') {
+          _this2.element.style.transform = 'matrix(1, 0, 0, 1, ' + x + ', ' + y + ')';
+        }
+      };
+
+      if (reqAni) requestAnimationFrame(set);else set();
 
       return this;
     }

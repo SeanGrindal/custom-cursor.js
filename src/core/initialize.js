@@ -1,22 +1,14 @@
-import { isMobileUserAgent } from '../util/isMobileUserAgent'
 
 import Focus from './focus'
 
 export function initialize(cursor) {
-  if (!isMobileUserAgent()) {
+  if (!cursor.isMobileUserAgent) {
     cursor.element.classList.add('cursor--initialized')
 
     if (cursor.options.hideTrueCursor) {
-      cursor.styleTag = document.createElement('style')
-      cursor.styleTag.innerHTML = `
-        * {
-          cursor: none;
-        }
-      `
-
-      document.head.appendChild(cursor.styleTag)
+      cursor.hideTrueCursor()
     }
-
+    
     document.addEventListener('mousemove', cursor.track)
 
     document.addEventListener('mouseleave', cursor.leave)
@@ -25,10 +17,7 @@ export function initialize(cursor) {
 
     const render = () => {
       if (!cursor.disabled) {
-        const top = cursor.position.Y
-        const left = cursor.position.X
-  
-        cursor.element.style.transform = `matrix(1, 0, 0, 1, ${left}, ${top})`
+        cursor.setPosition(cursor.position.X, cursor.position.Y)
       }
 
       requestAnimationFrame(render)

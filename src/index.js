@@ -4,6 +4,7 @@ import defaults from './defaults'
 // UTILITY FUNCTIONS
 import { warn } from './util/log'
 import { areOptionsEqual } from './util/object'
+import { isMobileUserAgent } from './util/isMobileUserAgent'
 
 // CORE FUNCTIONS
 import { destroy } from './core/destroy'
@@ -46,6 +47,8 @@ export default class CustomCursor {
 
       focusClass: options.focusClass || defaults.focusClass
     }
+
+    this.isMobileUserAgent = isMobileUserAgent()
 
     this.enter = () => {
       enter(this)
@@ -101,6 +104,38 @@ export default class CustomCursor {
     } else warn('New options in update call are the same as the old options')
 
     this.destroy().initialize()
+
+    return this
+  }
+
+  hideTrueCursor() {
+    this.styleTag = document.createElement('style')
+    this.styleTag.innerHTML = `
+      * {
+        cursor: none;
+      }
+    `
+
+    document.head.appendChild(this.styleTag)
+
+    return this
+  }
+
+  unhideTrueCursor() {
+    if (this.styleTag) document.head.removeChild(this.styleTag)
+
+    return this
+  }
+
+  setPosition(x, y, reqAni = false) {
+    const set = () => {
+      if (typeof x == 'number' && typeof y == 'number') {
+        this.element.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y})`
+      } 
+    }
+
+    if (reqAni) requestAnimationFrame(set)
+    else set()
 
     return this
   }
