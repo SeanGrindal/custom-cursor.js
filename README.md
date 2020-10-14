@@ -81,7 +81,11 @@ customCursor.unhideTrueCursor()
 
 // x and y being a pixel position inside the viewport
 customCursor.setPosition(x, y, requestAnimationFrame = false)
-/* Note that if the custom cursor is still enabled it's position will be updated on the next animationFrame. Thus, this method is most useful when the cursor is disabled. */
+/* 
+  Note that if the custom cursor is still enabled it's 
+  position will be updated on the next animationFrame. 
+  Thus, this method is most useful when the cursor is disabled. 
+*/
 ```
 
 ## Core Markup
@@ -116,6 +120,7 @@ customCursor.setPosition(x, y, requestAnimationFrame = false)
 ```js
 const customCursor = new CustomCursor('.cursor').initialize()
 
+// True when client is mobile and cursor isn't intialized 
 if (customCursor.isMobileUserAgent) {
   // foo()
 }

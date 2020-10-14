@@ -109,20 +109,25 @@ export default class CustomCursor {
   }
 
   hideTrueCursor() {
-    this.styleTag = document.createElement('style')
-    this.styleTag.innerHTML = `
-      * {
-        cursor: none;
-      }
-    `
-
-    document.head.appendChild(this.styleTag)
+    if (!this.styleTag) {
+      this.styleTag = document.createElement('style')
+      this.styleTag.innerHTML = `
+        * {
+          cursor: none;
+        }
+      `
+  
+      document.head.appendChild(this.styleTag)
+    }
 
     return this
   }
 
   unhideTrueCursor() {
-    if (this.styleTag) document.head.removeChild(this.styleTag)
+    if (this.styleTag) {
+      document.head.removeChild(this.styleTag)
+      this.styleTag = null
+    }
 
     return this
   }
