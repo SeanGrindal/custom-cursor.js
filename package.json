@@ -1,6 +1,6 @@
 {
   "name": "custom-cursor.js",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Generate a custom cursor in JS",
   "main": "dist/index.js",
   "scripts": {
@@ -12,7 +12,9 @@
     "type": "git",
     "url": "git+https://github.com/SeanGrindal/custom-cursor.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "simple",
     "lightweight",
