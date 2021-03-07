@@ -1,6 +1,8 @@
-# custom-cursor.js
+# <a href="https://custom-cursor-js.netlify.app/" target="_blank">custom-cursor.js</a>
 
-### Create a custom cursor in JavaScript: <a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">Example</a>
+### Create a custom cursor in JavaScript
+
+<a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">Example</a>
 
 -  Only enabled on mouse-driven devices
 -  Add various interaction animation
