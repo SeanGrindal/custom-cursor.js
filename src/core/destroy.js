@@ -12,6 +12,8 @@ export function destroy(cursor) {
 
     document.removeEventListener('mouseenter', cursor.enter)
 
+    document.removeEventListener('mousedown', cursor.clicking)
+
     cursor.focusObj = cursor.focusObj.destroy()
     cursor.initialized = false
   }

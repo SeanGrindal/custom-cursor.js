@@ -15,6 +15,8 @@ export function initialize(cursor) {
 
     document.addEventListener('mouseenter', cursor.enter)
 
+    document.addEventListener('mousedown', cursor.clicking)
+
     const render = () => {
       if (!cursor.disabled) {
         cursor.setPosition(cursor.position.X, cursor.position.Y)

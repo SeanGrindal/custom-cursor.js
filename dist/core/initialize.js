@@ -25,6 +25,8 @@ function initialize(cursor) {
 
         document.addEventListener('mouseenter', cursor.enter);
 
+        document.addEventListener('mousedown', cursor.clicking);
+
         var render = function render() {
             if (!cursor.disabled) {
                 cursor.setPosition(cursor.position.X, cursor.position.Y);

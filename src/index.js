@@ -14,6 +14,7 @@ import { initialize } from './core/initialize'
 import { enter } from './core/events/enter'
 import { leave } from './core/events/leave'
 import { track } from './core/events/track'
+import { clicking } from './core/events/clicking'
 
 export default class CustomCursor {
   constructor(element, options = {}) {
@@ -60,6 +61,10 @@ export default class CustomCursor {
 
     this.track = (e) => {
       track(e, this)
+    }
+
+    this.clicking = (e) => {
+      clicking(this)
     }
   }
 

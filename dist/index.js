@@ -38,6 +38,8 @@ var _leave = require('./core/events/leave');
 
 var _track = require('./core/events/track');
 
+var _clicking = require('./core/events/clicking');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -93,6 +95,10 @@ var CustomCursor = function () {
 
     this.track = function (e) {
       (0, _track.track)(e, _this);
+    };
+
+    this.clicking = function (e) {
+      (0, _clicking.clicking)(_this);
     };
   }
 
@@ -170,17 +176,22 @@ var CustomCursor = function () {
   }, {
     key: 'hideTrueCursor',
     value: function hideTrueCursor() {
-      this.styleTag = document.createElement('style');
-      this.styleTag.innerHTML = '\n      * {\n        cursor: none;\n      }\n    ';
+      if (!this.styleTag) {
+        this.styleTag = document.createElement('style');
+        this.styleTag.innerHTML = '\n        * {\n          cursor: none;\n        }\n      ';
 
-      document.head.appendChild(this.styleTag);
+        document.head.appendChild(this.styleTag);
+      }
 
       return this;
     }
   }, {
     key: 'unhideTrueCursor',
     value: function unhideTrueCursor() {
-      if (this.styleTag) document.head.removeChild(this.styleTag);
+      if (this.styleTag) {
+        document.head.removeChild(this.styleTag);
+        this.styleTag = null;
+      }
 
       return this;
     }
