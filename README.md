@@ -2,7 +2,10 @@
 
 ### Create a custom cursor in JavaScript
 
-<a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">Example</a>
+-  <a href="https://custom-cursor-js.netlify.app/" target="_blank">Demos Page</a>
+-  <a href="https://seangrindal.github.io/custom-cursor-example/" target="_blank">Another Example</a>
+
+### About
 
 -  Only enabled on mouse-driven devices
 -  Add various interaction animation
