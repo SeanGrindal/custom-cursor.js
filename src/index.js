@@ -28,7 +28,7 @@ export default class CustomCursor {
 
     this.element = element
 
-    this.focusObj = null
+    this.focusController = null
 
     this.styleTag = null
 
@@ -118,7 +118,7 @@ export default class CustomCursor {
       this.styleTag = document.createElement('style')
       this.styleTag.innerHTML = `
         * {
-          cursor: none;
+          cursor: none !important;
         }
       `
   

@@ -47,7 +47,7 @@ Focus elements can be given unique interactions.
 const options = {
    focusElements: [
       {
-         selector: 'a#special-focus',
+         elements: 'a#special-focus', // Can be nodelist or selector
          focusClass: 'cursor--special-focused',
          mouseenter: () => {
             // Run in addition to adding the focusClass

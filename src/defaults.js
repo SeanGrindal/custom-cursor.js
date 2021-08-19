@@ -7,6 +7,5 @@ export default {
   focusElements: ['a', 'button'],
 
   // Class applied when the true cursor is hovering over a focusElement
-  focusClass: 'cursor--focused'
-
+  focusClass: 'cursor--focused',
 }

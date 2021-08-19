@@ -20,7 +20,7 @@ function destroy(cursor) {
 
         document.removeEventListener('mousedown', cursor.clicking);
 
-        cursor.focusObj = cursor.focusObj.destroy();
+        cursor.focusController = cursor.focusController.destroy();
         cursor.initialized = false;
     }
 }

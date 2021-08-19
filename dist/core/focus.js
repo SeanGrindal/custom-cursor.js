@@ -8,6 +8,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Focus = function () {
@@ -47,18 +49,24 @@ var Focus = function () {
   }
 
   _createClass(Focus, [{
-    key: 'initialize',
-    value: function initialize() {
+    key: 'addFocusElements',
+    value: function addFocusElements(focusOpts) {
       var _this2 = this;
 
-      this.cursor.options.focusElements.forEach(function (selector) {
+      focusOpts.forEach(function (selector) {
         if (typeof selector == 'string' || (typeof selector === 'undefined' ? 'undefined' : _typeof(selector)) == 'object') {
-          var elSelector = selector.hasOwnProperty('selector') ? selector.selector : selector;
+          var elInfo = selector.hasOwnProperty('elements') ? selector.elements : selector;
           var focusClass = selector.hasOwnProperty('focusClass') ? selector.focusClass : _this2.cursor.options.focusClass;
           var customEnterFunc = selector.hasOwnProperty('mouseenter') ? selector.mouseenter : null;
           var customLeaveFunc = selector.hasOwnProperty('mouseleave') ? selector.mouseleave : null;
 
-          var elements = document.querySelectorAll(elSelector);
+          var elements = [];
+
+          if (typeof elInfo == 'string') {
+            elements = document.querySelectorAll(elInfo);
+          } else {
+            elements = elInfo;
+          }
 
           var enterFunc = _this2.elementEnter(focusClass, customEnterFunc);
           var leaveFunc = _this2.elementLeave(focusClass, customLeaveFunc);
@@ -102,6 +110,28 @@ var Focus = function () {
       });
 
       return this;
+    }
+  }, {
+    key: 'removeFocusElements',
+    value: function removeFocusElements(elements) {
+      var _this3 = this;
+
+      elements.forEach(function (el) {
+        var ref = _this3.initializedElements.find(function (item) {
+          return item.el == el;
+        });
+
+        if (ref) {
+          el.removeEventListener('mouseenter', ref.enterFunc);
+          el.removeEventListener('mouseleave', ref.leaveFunc);
+        }
+      });
+
+      if (elements.length) {
+        this.initializedElements = this.initializedElements.filter(function (obj) {
+          return ![].concat(_toConsumableArray(elements)).includes(obj.el);
+        });
+      }
     }
   }, {
     key: 'destroy',

@@ -27,7 +27,7 @@ export function initialize(cursor) {
 
     render()
 
-    cursor.focusObj = new Focus(cursor).initialize()
+    cursor.focusController = new Focus(cursor).addFocusElements(cursor.options.focusElements)
     cursor.initialized = true
   }
 }

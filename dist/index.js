@@ -62,7 +62,7 @@ var CustomCursor = function () {
 
     this.element = element;
 
-    this.focusObj = null;
+    this.focusController = null;
 
     this.styleTag = null;
 

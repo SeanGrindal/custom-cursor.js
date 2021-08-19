@@ -30,15 +30,21 @@ export default class Focus {
     }
   }
 
-  initialize() {
-    this.cursor.options.focusElements.forEach(selector => {
+  addFocusElements(focusOpts) {
+    focusOpts.forEach(selector => {
       if (typeof selector == 'string' || typeof selector == 'object') {
-        const elSelector = selector.hasOwnProperty('selector') ? selector.selector : selector
+        const elInfo = selector.hasOwnProperty('elements') ? selector.elements : selector
         const focusClass = selector.hasOwnProperty('focusClass') ? selector.focusClass : this.cursor.options.focusClass
         const customEnterFunc = selector.hasOwnProperty('mouseenter') ? selector.mouseenter : null
         const customLeaveFunc = selector.hasOwnProperty('mouseleave') ? selector.mouseleave : null
 
-        const elements = document.querySelectorAll(elSelector)
+        let elements = []
+
+        if (typeof elInfo == 'string') {
+          elements = document.querySelectorAll(elInfo)
+        } else {
+          elements = elInfo
+        }
  
         const enterFunc = this.elementEnter(focusClass, customEnterFunc)
         const leaveFunc = this.elementLeave(focusClass, customLeaveFunc)
@@ -59,6 +65,21 @@ export default class Focus {
     })
 
     return this
+  }
+
+  removeFocusElements(elements) {
+    elements.forEach((el) => {
+      const ref = this.initializedElements.find(item => item.el == el)
+
+      if (ref) {
+        el.removeEventListener('mouseenter', ref.enterFunc)
+        el.removeEventListener('mouseleave', ref.leaveFunc)
+      }
+    })
+
+    if (elements.length) {
+      this.initializedElements = this.initializedElements.filter((obj) => ![...elements].includes(obj.el))
+    }
   }
 
   destroy() {

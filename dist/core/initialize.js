@@ -37,7 +37,7 @@ function initialize(cursor) {
 
         render();
 
-        cursor.focusObj = new _focus2.default(cursor).initialize();
+        cursor.focusController = new _focus2.default(cursor).addFocusElements(cursor.options.focusElements);
         cursor.initialized = true;
     }
 }
