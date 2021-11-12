@@ -15,7 +15,7 @@
 ## Import
 
 ```js
-const CustomCursor = require('custom-cursor.js').default;
+const CustomCursor = require('custom-cursor.js').default
 ```
 
 ## Simple Creation
@@ -31,12 +31,12 @@ const options = {
 
    // Class applied when the true cursor is hovering over a focusElement
    focusClass: 'cursor--focused',
-};
+}
 
 // Can be selector string or DOM node
-const element = '.cursor';
+const element = '.cursor'
 
-const customCursor = new CustomCursor(element, options);
+const customCursor = new CustomCursor(element, options)
 ```
 
 ## Advanced Interactions
@@ -51,11 +51,11 @@ const options = {
          focusClass: 'cursor--special-focused',
          mouseenter: () => {
             // Run in addition to adding the focusClass
-            console.log('Hi!! I entered <a id="#special-focus">');
+            console.log('Hi!! I entered <a id="#special-focus">')
          },
          mouseleave: () => {
             // Run in addition to removing the focusClass
-            console.log(`Cya!! I'm leaving <a id="#special-focus">`);
+            console.log(`Cya!! I'm leaving <a id="#special-focus">`)
          },
       },
       'button',
@@ -63,9 +63,9 @@ const options = {
    ],
 
    focusClass: 'cursor--focused',
-};
+}
 
-const customCursor = new CustomCursor('.cursor', options);
+const customCursor = new CustomCursor('.cursor', options)
 ```
 
 If a focus class is given for a specific selector it will override the default. In the above example 'cursor--special-focused' is applied to `<a id="special-focus">` on hover, and 'cursor--focused' is applied on hover to buttons and other links.
@@ -76,32 +76,44 @@ Note that listeners will only be attached to an element the first time it's foun
 
 ```js
 // Initializes the cursor to begin following the mouse by attaching listeners and starting an animation loop
-customCursor.initialize();
+customCursor.initialize()
 
 // Disable cursor from following the mouse without removing any listeners
-customCursor.disable();
+customCursor.disable()
 
 // Enable cursor to follow mouse again if it has been disabled
-customCursor.enable();
+customCursor.enable()
 
 // Destroy the cursor removing all event listeners and stopping the animation loop
-customCursor.destroy();
+customCursor.destroy()
 
 // Update the cursor with new options
-customCursor.update(newOptions);
+customCursor.update(newOptions)
 
 // Hide true cursor (if it isn't already)
-customCursor.hideTrueCursor();
+customCursor.hideTrueCursor()
 
 // Unhide true cursor (if it's hidden)
-customCursor.unhideTrueCursor();
+customCursor.unhideTrueCursor()
 
 // x and y being a pixel position inside the viewport
-customCursor.setPosition(x, y, (requestAnimationFrame = false));
-/* 
-  Note that if the custom cursor is still enabled it's 
-  position will be updated on the next animationFrame. 
-  Thus, this method is most useful when the cursor is disabled. 
+customCursor.setPosition(x, y, (requestAnimationFrame = false))
+/*
+  Note that if the custom cursor is still enabled it's
+  position will be updated on the next animationFrame.
+  Thus, this method is most useful when the cursor is disabled.
+*/
+
+// Add new focus control elements after initialization
+customCursor.focusController.addFocusElements(focusElements)
+/*
+   Where focusElements mimics the structure used in options when initializing the cursor
+*/
+
+// Remove elements currently applying focus controls to the cursor
+customCursor.focusController.removeFocusElements(htmlElements)
+/*
+   htmlElements are a NodeList of DOM elements currently affecting the cursor 
 */
 ```
 
@@ -142,7 +154,7 @@ customCursor.setPosition(x, y, (requestAnimationFrame = false));
 ### Run code if mobile
 
 ```js
-const customCursor = new CustomCursor('.cursor').initialize();
+const customCursor = new CustomCursor('.cursor').initialize()
 
 // True when client is mobile (cursor won't get initialized)
 if (customCursor.isMobileUserAgent) {
@@ -155,19 +167,55 @@ if (customCursor.isMobileUserAgent) {
 ```js
 const customCursor = new CustomCursor('.cursor', {
    hideTrueCursor: true,
-}).initialize();
+}).initialize()
 
 // When disabling
-customCursor.disable().unhideTrueCursor();
+customCursor.disable().unhideTrueCursor()
 
 // Then re-enable
-customCursor.enable().hideTrueCursor();
+customCursor.enable().hideTrueCursor()
 ```
 
 ### Set starting point for the cursor
 
 ```js
-new CustomCursor('.cursor').setPosition(x, y).initialize();
+new CustomCursor('.cursor').setPosition(x, y).initialize()
+```
+
+### Add new focus controllers
+
+```js
+const cursor = new CustomCursor('.cursor').initialize()
+
+
+// Some time passes...
+
+
+cursor.focusController.addFocusElements({
+   elements: '.my-new-elements'
+   focusClass: 'cursor--special-focused',
+})
+```
+
+### Remove focus controllers
+
+```js
+// Keep a DOM list of elements you will need to remove later
+const toBeRemovedLater = document.querySelectorAll('.will-be-removed')
+
+const cursor = new CustomCursor('.cursor', {
+   focusElements: [
+      {
+         elements: willBeRemovedLater
+         focusClass: 'cursor--special-focused',
+      }
+   ]}).initialize()
+
+
+// Some time passes...
+
+
+cursor.focusController.removeFocusElements(toBeRemovedLater)
 ```
 
 # Full Example
@@ -183,7 +231,7 @@ new CustomCursor('.cursor').setPosition(x, y).initialize();
 ```
 
 ```js
-const CustomCursor = require('custom-cursor.js').default;
+const CustomCursor = require('custom-cursor.js').default
 new CustomCursor('.cursor', {
    hideTrueCursor: true,
    focusElements: [
@@ -195,7 +243,7 @@ new CustomCursor('.cursor', {
    ],
 })
    .setPosition(-30, -30)
-   .initialize();
+   .initialize()
 ```
 
 ```css
