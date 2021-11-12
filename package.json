@@ -1,6 +1,6 @@
 {
   "name": "custom-cursor.js",
-  "version": "1.3.6",
+  "version": "1.3.7",
   "description": "Generate a custom cursor in JS",
   "main": "dist/index.js",
   "scripts": {
