@@ -236,7 +236,7 @@ new CustomCursor('.cursor', {
    hideTrueCursor: true,
    focusElements: [
       {
-         selector: '.photo-link',
+         elements: '.photo-link',
          focusClass: 'cursor--focused-view',
       },
       'a',
